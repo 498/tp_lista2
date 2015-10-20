@@ -5,15 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class DealerTest {
-  
-  @Test
-  public final void testDealer() {
-    Dealer dealer = new Dealer(4);
-  }
 
   @Test
   public final void testDealInt_dealsCards_true() {
-    final Dealer dealer = new Dealer(4);
+    final Dealer dealer = new Dealer(4, new Deck());
     dealer.deal(4);
     for (int i = 0; i < 4; ++i) {
       assertEquals(dealer.players[i].countCards(), 4);
@@ -22,15 +17,16 @@ public class DealerTest {
   
   @Test(expected = IndexOutOfBoundsException.class)
   public final void testDealInt_dealTooMuch_exception() {
-    final Dealer dealer = new Dealer(4);
+    final Dealer dealer = new Dealer(4, new Deck());
     dealer.deal(14);
   }
 
   @Test
   public final void testDeal_dealUnevenNumberOfPlayers_cardsLeft() {
-    final Dealer dealer = new Dealer(5);
+    Deck deck = new Deck();
+    final Dealer dealer = new Dealer(5, deck);
     dealer.deal();
-    assertEquals(dealer.deck.count(), 2);
+    assertEquals(deck.count(), 2);
   }
 
 }

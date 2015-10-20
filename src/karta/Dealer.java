@@ -3,13 +3,13 @@ package karta;
 import java.util.List;
 
 public class Dealer {
-  public final Deck deck;
+  private Deck deck;
   public Player[] players;
   private final int numberOfPlayers;
   
-  Dealer(final int numberOfPlayers) {
+  Dealer(final int numberOfPlayers, Deck deck) {
     this.numberOfPlayers = numberOfPlayers;
-    deck = new Deck();
+    this.deck = deck;
     players = new Player[numberOfPlayers];
     for (int i = 0; i < numberOfPlayers; ++i) {
       players[i] = new Player();
@@ -27,5 +27,4 @@ public class Dealer {
   public void deal() {
     deal(deck.count() / numberOfPlayers);
   }
-
 }
