@@ -1,41 +1,66 @@
 package karta;
 
 import java.util.Collections;
-import java.util.Random;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
+/**
+ * 
+ * @author mcz
+ *
+ */
 public class Deck {
-	private LinkedList<Card> cards;
+  /**
+   * 
+   */
+  private final List<Card> cards;
 
-	Deck() {
-		cards = new LinkedList<Card>();
-		for (Suit s : Suit.values()) {
-			for (Rank r : Rank.values()) {
-				cards.add(new Card(s, r));
-			}
-			shuffle();
-		}
-	}
+  Deck() {
+    cards = new LinkedList<Card>();
+    for (final Suit s : Suit.values()) {
+      for (final Rank r : Rank.values()) {
+        cards.add(new Card(s, r));
+      }
+    }
+  }
 
-	private void shuffle() {
-		Collections.shuffle(cards, new Random(System.nanoTime()));
-	}
+  public int count() {
+    return cards.size();
+  }
+  
+  public void shuffle() {
+    Collections.shuffle(cards, new Random(System.nanoTime()));
+  }
 
-	public void addCardToDeck(Card c) {
-		cards.add(c);
-	}
+  /**
+   * 
+   * @param card
+   */
+  public void addCardToDeck(final Card card) {
+    cards.add(card);
+  }
 
-	public Card giveCardFromDeck() {
-		Card c = cards.getFirst();
-		cards.remove(0);
-		return c;
-	}
-	
-	public LinkedList<Card> giveNCardsFromDeck(int n) {
-		LinkedList<Card> cards = new LinkedList<Card>();
-		for (int i = 0; i < n; ++i) {
-			cards.add(this.giveCardFromDeck());
-		}
-		return cards;
-	}
+  /** 
+   * .
+   * @return 
+   */
+  public Card giveCardFromDeck() {
+    final Card card = cards.get(0);
+    cards.remove(0);
+    return card;
+  }
+
+  /**
+   * 
+   * @param number Number of cards to get from Deck.
+   * @return
+   */
+  public List<Card> giveNCardsFromDeck(final int number) {
+    final List<Card> cards = new LinkedList<Card>();
+    for (int i = 0; i < number; ++i) {
+      cards.add(giveCardFromDeck());
+    }
+    return cards;
+  }
 }
